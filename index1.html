@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS FEE</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+    <style>
+        .page-loading {
+          position: fixed;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          -webkit-transition: all .4s .2s ease-in-out;
+          transition: all .4s .2s ease-in-out;
+          background-color: #fff;
+          opacity: 0;
+          visibility: hidden;
+          z-index: 9999;
+        }
+        .dark-mode .page-loading {
+          background-color: #131022;
+        }
+        .page-loading.active {
+          opacity: 1;
+          visibility: visible;
+        }
+        .page-loading-inner {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: 100%;
+          text-align: center;
+          -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+          -webkit-transition: opacity .2s ease-in-out;
+          transition: opacity .2s ease-in-out;
+          opacity: 0;
+        }
+        .page-loading.active>.page-loading-inner {
+          opacity: 1;
+        }
+        .page-loading-inner>span {
+          display: block;
+          font-size: 1rem;
+          font-weight: normal;
+          color: #9397ad;
+        }
+        .dark-mode .page-loading-inner>span {
+          color: #fff;
+          opacity: .6;
+        }
+        .page-spinner {
+          display: inline-block;
+          width: 2.75rem;
+          height: 2.75rem;
+          margin-bottom: .75rem;
+          vertical-align: text-bottom;
+          border: .15em solid #b4b7c9;
+          border-right-color: transparent;
+          border-radius: 50%;
+          -webkit-animation: spinner .75s linear infinite;
+          animation: spinner .75s linear infinite;
+        }
+        .dark-mode .page-spinner {
+          border-color: rgba(255, 255, 255, .4);
+          border-right-color: transparent;
+        }
+
+        @-webkit-keyframes spinner {
+          100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+          }
+        }
+        @keyframes spinner {
+          100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+          }
+        }
+      </style>
+      <script>
+          let mode = window.localStorage.getItem('mode'),
+              root = document.getElementsByTagName('html')[0];
+          if (mode !== undefined && mode === 'dark') {
+            root.classList.add('dark-mode');
+          } else {
+            root.classList.remove('dark-mode');
+          }
+      </script>
+      <script>
+        (function () {
+          window.onload = function () {
+            const preloader = document.querySelector('.page-loading');
+            preloader.classList.remove('active');
+            setTimeout(function () {
+              preloader.remove();
+            }, 1000);
+          };
+        })();
+      </script>
+
+    </head>
+
+    <body>
+      <div class="page-loading active">
+        <div class="page-loading-inner">
+          <div class="page-spinner"></div><span>Loading</span>
+        </div>
+      </div>
+  </head>
+  <body>
+    <div class="mobile_nav">
+      <div class="nav_bar">
+        <img src="images/logo.jpg" width="250" alt="CCS COLLECTION FEE">
+        <i class="fa fa-bars nav_btn"></i>
+      </div>
+      <div class="mobile_nav_items">
+        <a href="#"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
+        <a href="#"><i class="fas fa-cogs"></i><span>Components</span></a>
+        <a href="#"><i class="fas fa-table"></i><span>Tables</span></a>
+        <a href="#"><i class="fas fa-th"></i><span>Forms</span></a>
+        <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+        <a href="#"><i class="fas fa-sliders-h"></i><span>Settings</span></a>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="profile_info">
+        <img src="images/logo.jpg" width="150"  alt="CCS COLLECTION FEE">
+      </div>
+      <a href="#Dashboard"><i class="active"></i><span>Dashboard</span></a>
+      <a href="#"><i class=""></i><span>Fees</span></a>
+      <a href="#"><i class=""></i><span>Payment Records</span></a>
+      <a href="#"><i class=""></i><span>Colleges</span></a>
+      <a href="#"><i class=""></i><span>Funds</span></a>
+      <a href="#"><i class=""></i><span>Financial Report</span></a>
+      <a href="#"><i class=""></i><span>Audit Log</span></a>
+      <a href="#"><i class=""></i><span>Admin Settings</span></a>
+    <div>
+        <a href="#" class="logout_btn">Logout</a>
+      </div>
+    </div>
+    <div class="content">
+        <div class="chartMenu">
+        <p><b>Dashboard<b></p>
+      </div>
+       <div class="chartCard">
+        <div class="chartBox">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+      // setup
+      const data = {
+        labels: ['College of Agriculture', 'College of Architecture', 'College of Asian and Islamic Studies', 'College of Computing Studies', 'College of Criminal Justice Education', 'College of Engineering', 'College of Forestry and Environmental Studies', 'College of Home Economics', 'College of Law', 'College of Liberal Arts', 'College of Nursing', 'College of Public Administration and Development Studies', 'College of Sports Science and Physical Education', 'College of Science and Mathematics', 'College of Social Work and Community Deveolpment', ' College of Teacher Education'],
+        datasets: [{
+          label: 'Target: PHP 5,000,000',
+          data: [2300000, 2300000, 1500000, 5000000, 3000000, 5000000, 2300000, 2300000, 3000000, 1000000, 2300000, 2300000, 1230000, 2300000, 2300000, 3000000],
+          backgroundColor: [
+            'rgba(255, 26, 104, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(0, 0, 0, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 26, 104, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(0, 0, 0, 1)'
+          ],
+          borderWidth: 1
+        }]
+      };
+  
+      // config 
+      const config = {
+        type: 'bar',
+        data,
+        options: {
+          indexAxis: 'y',
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      };
+
+      const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+      );
+      </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('.nav_btn').click(function(){
+        $('.mobile_nav_items').toggleClass('active');
+      });
+    });
+    </script>
+
+  </body>
+</html>
